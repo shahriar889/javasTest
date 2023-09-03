@@ -1,0 +1,34 @@
+#h1{
+    font-family: cursive;
+    position: relative;
+    top: 10px;
+}
+body{
+    position: relative;
+    top: -10px;
+}
+[type="text"]{
+    font-size: medium;
+    border: 2px solid black;
+    height: 40px;
+    width: 170px;
+    border-radius: 5%;
+}
+[type="number"]{
+    font-size: medium;
+    border: 2px solid black;
+    height: 40px;
+    width: 170px;
+    border-radius: 5%;
+    position: relative;
+    top: 10px;
+}
+[type="button"]{
+    font-size: medium;
+    border: 2px solid black;
+    height: 40px;
+    width: 175px;
+    border-radius: 5%;
+    position: relative;
+    top: 20px;
+}
