@@ -133,14 +133,14 @@
     
 // } 
 
-document.getElementById("button").addEventListener(('click'),()=>{
-    console.log("Hello")
-})
+// document.getElementById("button").addEventListener(('click'),()=>{
+//     console.log("Hello")
+// })
 
-document.getElementById("button").addEventListener(('click'),()=>{
-    console.log("World")
-})
+// document.getElementById("button").addEventListener(('click'),()=>{
+//     console.log("World")
+// })
 
-window.addEventListener('keypress',(evt)=>{
-    console.log(evt.keyCode)
-})
+// window.addEventListener('keypress',(evt)=>{
+//     console.log(evt.keyCode)
+// })

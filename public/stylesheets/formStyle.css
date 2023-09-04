@@ -23,7 +23,7 @@ body{
     position: relative;
     top: 10px;
 }
-[type="button"]{
+[type="submit"]{
     font-size: medium;
     border: 2px solid black;
     height: 40px;
