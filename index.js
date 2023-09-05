@@ -3,6 +3,11 @@ const path = require('path')
 
 const PORT = process.env.PORT || 8000
 
+const {Pool} = require('pg');
+var pool = new Pool({
+  connectionString: process.env.DATABASSE_URL
+})
+
 var app = express()
   app.use(express.json())
   app.use(express.urlencoded({extended:false}))
@@ -12,8 +17,14 @@ var app = express()
   app.get('/', (req, res) => res.render('pages/index'))
   app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
   app.get("/database",(req,res)=>{
-    var data = {results: [2,3,4,5,6]}
-    res.render('pages/db', data)
+    var getUsersQuery = ` select * from userList`
+    pool.query(getUsersQuery,(error, result)=>{
+      if(error){
+        res.end(error)
+      }
+       var results = {'rows': result.rows}
+       res.render('pages/db', results)
+    })
   })
 
   app.post('/addUser',(req,res)=>{
