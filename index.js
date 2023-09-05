@@ -19,7 +19,7 @@ var app = express()
   app.get('/', (req, res) => res.render('pages/index'))
   app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
   app.get("/database",(req,res)=>{
-    var getUsersQuery = `select * from userList`
+    var getUsersQuery = `SELECT * FROM userList`
     pool.query(getUsersQuery,(error, result)=>{
       if(error){
         console.log("Error executing the query:",error)
