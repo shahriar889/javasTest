@@ -25,7 +25,7 @@ var app = express()
   app.get("/database",async (req,res)=>{
 
     if(error){
-      res.send(error.message);
+      res.send(error.name);
     }
       const client = await pool.connect();
       const result = await client.query('SELECT * FROM userlist');
