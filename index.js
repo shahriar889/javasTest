@@ -23,6 +23,7 @@ var app = express()
     pool.query(getUsersQuery,(error, result)=>{
       if(error){
         console.log("Error executing the query:",error)
+        res.send(error.message);
         // res.status(500).send("An error occurred while fetching data from the database.", error);
         return;
       }
