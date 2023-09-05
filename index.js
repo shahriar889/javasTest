@@ -19,10 +19,12 @@ var app = express()
   app.get('/', (req, res) => res.render('pages/index'))
   app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
   app.get("/database",(req,res)=>{
-    var getUsersQuery = ` select * from userList`
+    var getUsersQuery = `select * from userList`
     pool.query(getUsersQuery,(error, result)=>{
       if(error){
-        res.end(error)
+        console.log("Error executing the query:",error)
+        res.status(500).send("An error occurred while fetching data from the database.");
+        return;
       }
        var results = {'rows': result.rows}
        res.render('pages/db', results)
