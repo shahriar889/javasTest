@@ -5,7 +5,10 @@ const PORT = process.env.PORT || 8000
 
 const {Pool} = require('pg');
 var pool = new Pool({
-  connectionString: process.env.DATABASE_URL
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
   //'postgres://postgres:mohaha@localhost/users'
   //process.env.DATABASSE_URL
 })
@@ -18,19 +21,19 @@ var app = express()
   app.set('view engine', 'ejs')
   app.get('/', (req, res) => res.render('pages/index'))
   app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
-  app.get("/database",(req,res)=>{
-    var getUsersQuery = `SELECT * FROM userlist`
-    pool.query(getUsersQuery,(error, result)=>{
-      if(error){
-        console.log("Error executing the query:",error)
-        res.send(error.message);
-        // res.status(500).send("An error occurred while fetching data from the database.", error);
-        return;
-      }
-       var results = {'rows': result.rows}
-       res.render('pages/db', results)
-    })
+  app.get("/database",async (req,res)=>{
+      try {
+      const client = await pool.connect();
+      const result = await client.query('SELECT * FROM userlist');
+      const results = { 'results': (result) ? result.rows : null};
+      res.render('pages/db', results );
+      client.release();
+    } catch (err) {
+      console.error(err);
+      res.send("Error " + err);
+    }
   })
+
 
   app.post('/addUser',(req,res)=>{
     console.log("Post req for add user")
