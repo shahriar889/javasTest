@@ -1,4 +1,3 @@
-const { error } = require('console');
 const express = require('express')
 const path = require('path')
 
@@ -23,16 +22,17 @@ var app = express()
   app.get('/', (req, res) => res.render('pages/index'))
   app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
   app.get("/database",async (req,res)=>{
-
-    if(error){
-      res.send(error.name);
-    }
-      const client = await pool.connect();
-      const result = await client.query('SELECT * FROM userlist');
-      const results = { 'results': (result) ? result.rows : null};
-      res.render('pages/db', results );
-      client.release();
-    
+    var getUsersQuery = `SELECT * FROM userlist`
+    pool.query(getUsersQuery,(error, result)=>{
+      if(error){
+        res.send("Error executing the query:",error.message)
+        
+        // res.status(500).send("An error occurred while fetching data from the database.", error);
+        return;
+      }
+       var results = {'rows': result.rows}
+       res.render('pages/db', results)
+    })
   })
 
 
